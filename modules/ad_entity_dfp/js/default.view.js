@@ -86,7 +86,7 @@
           var ad_tag = ad_tags[i];
           var slot = ad_tag.data('slot');
           if (typeof slot === 'object') {
-            googletag.display(ad_tag[0]);
+            googletag.display(ad_tag.data('id'));
             slots.push(slot);
           }
         }
