@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * The module file.
+ */
+
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\cache\CachePluginBase;
+use \Drupal\ad_entity_views\Plugin\views\area\AdEntityArea;
+
+/**
+ * Implements hook_views_post_render().
+ *
+ * Renders ads in views.
+ */
+function ad_entity_views_views_post_render(ViewExecutable $view, &$output, CachePluginBase $cache) {
+  if (empty($output)) {
+    return;
+  }
+
+  $has_ads = FALSE;
+  if (!empty($view->footer)) {
+    foreach ($view->footer as $key => $footer) {
+      if ($footer instanceof AdEntityArea) {
+        // @todo: Process multiple ad entities?.
+        $has_ads = TRUE;
+        unset($view->footer[$key]);
+      }
+    }
+  }
+
+  if (!$has_ads || empty($footer)) {
+    return;
+  }
+
+  $teaser_row = NULL;
+  // The output can have multiple rows, get the one of the view.
+  foreach ($output['#rows'] as $key => $rows) {
+    if (isset($rows['#view']) && $rows['#view'] == $view) {
+      $teaser_row = &$output['#rows'][$key]['#rows'];
+      break;
+    }
+  }
+
+  if ($teaser_row) {
+    $ad_build = $footer->render();
+    $position = $footer->options['ad_entity_position'];
+    // Show ad at the specified position.
+    array_splice($teaser_row, $position, 0, [$ad_build]);
+  }
+}

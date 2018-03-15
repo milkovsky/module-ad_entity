@@ -1,0 +1,7 @@
+name: Advertising Entity in Views
+type: module
+description: Shows ads among views results.
+core: 8.x
+package: Advertising
+dependencies:
+ - ad_entity
