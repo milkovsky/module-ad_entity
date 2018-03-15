@@ -4,4 +4,4 @@ description: Shows ads among views results.
 core: 8.x
 package: Advertising
 dependencies:
- - ad_entity
+ - drupal:ad_entity
