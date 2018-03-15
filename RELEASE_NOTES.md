@@ -1,5 +1,10 @@
 # Advertising Entity: Release notes
 
+8.x-1.0-beta12:
+- Bugfix by @milkovsky: Fix DFP display.
+- DFP: Added CSS class "empty" for empty slots.
+- DFP: Added support for Roadblocks.
+
 8.x-1.0-beta11:
 - New feature: Site wide context
 - Refactored DFP Javascript implementation
